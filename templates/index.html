@@ -1,1 +1,87 @@
-
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blockchain Based Message Authentication</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        background-color: #333;
+        color: #fff;
+        font-family: "Roboto", sans-serif;
+      }
+      .container {
+        padding-top: 20px;
+      }
+      .message-box {
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid #fff;
+        border-radius: 5px;
+        padding: 10px;
+        color: #fff;
+      }
+      .table {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center mb-4">Blockchain Based Message Authentication</h1>
+      <div class="message-box">
+        <form action="/" method="POST" onclick="eraseTable();">
+          <div class="form-group">
+            <label for="message">Enter Message:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="message"
+              name="message"
+              placeholder="Type your message here"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+      <div id="table-container">
+        <table class="table mt-4" id="block-table">
+          <tbody>
+            {% for item in block_data_list %}
+            <tr>
+              <td>Block hash : {{ item.hash }}</td>
+            </tr>
+            <tr>
+              <td>Message Digest: {{ item.md5_digest }}</td>
+            </tr>
+            <tr>
+              <td>Sender Message: {{ item.message }}</td>
+            </tr>
+            <tr>
+              <td>Receiver Digest: {{ item.receiver_digest }}</td>
+            </tr>
+            <tr>
+              <td>Correct? {% if item.correct %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+              <td>Receiver Message: {{ item.receiver_message }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <script>
+      function eraseTable() {
+        var table = document.getElementById("table-container");
+        table.innerHTML =
+          '<table class="table mt-4" id="block-table"><thead><tr><th scope="col">Block Hash</th><th scope="col">Message Digest</th><th scope="col">Sender Message</th><th scope="col">Receiver Digest</th><th scope="col">Correct</th></tr></thead><tbody></tbody></table>';
+      }
+    </script>
+  </body>
+</html>
